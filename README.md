@@ -1,344 +1,585 @@
-# Whack-a-Mole Game Development Notes (Java GUI)
+# whack-a-mole-java
+> Whack-A-Mole - Java Swing Game using timed events and score logic
+
+> Advisor: Dr.Koteswar Rao Jerripothula
+
+> Simple Java Swing desktop game implementing a 3x3 Whack-A-Mole with Modern-themed
+assets, timed mole and Plant movement, score tracking, and game-over logic.
+
+> TechStack: Java, Swing, AWT, javax.swing.Timer, ImageIcon, VS Code
+
+- Author: [Kintsugi-Programmer](https://github.com/kintsugi-programmer)
+
 ![alt text](image.png)
 
-## 1. Introduction and Game Overview
+> Disclaimer: The content presented here is a curated blend of my personal learning journey, experiences, open-source documentation, and invaluable knowledge gained from diverse sources. I do not claim sole ownership over all the material; this is a community-driven effort to learn, share, and grow together.
 
-This project is suitable for those beginning to learn Java coding and wishing to learn how to build a Graphical User Interface (GUI).
+## Introduction
 
-### 1.1 Game Elements and Goal
+This Documentation teaches how to create a simple Whack-a-Mole game in Java with a graphical user interface (GUI). This is an excellent beginner project for those starting to learn Java and GUI development.
 
-*   **Theme:** The game uses images from the Mario franchise.
-*   **Board:** The game uses **nine tiles**.
-*   **The Mole:** A small mole (Monty) hops around the tiles.
-*   **Goal:** Click on a tile containing the mole to gain points.
-*   **The Piranha Plant:** The Piranha Plant (Piranha) also moves around.
-*   **Game Over Condition:** If the player touches (clicks) the Piranha Plant, it results in "game over".
-*   **Gameplay Demonstration:** The mole moves, clicking it grants points (it can be clicked multiple times until it moves). Clicking the plant results in "game over".
+### Game Overview
 
-## 2. Resources and Setup
+- **Game Elements**: Uses images from the Mario franchise
+- **Game Board**: Nine tiles arranged in a 3x3 grid
+- **Main Character**: A mole that hops around the tiles
+- **Obstacle**: A Piranha Plant that also moves around the board
+- **Objective**: Click on tiles with the mole to earn points
+- **Losing Condition**: Clicking on the Piranha Plant results in "Game Over"
 
-### 2.1 Development Environment
+## Project Setup
 
-*   **Tool:** Visual Studio Code (VS Code) is used for the tutorial.
-*   **Setup Note:** A separate tutorial exists on how to set up Java with Visual Studio Code.
+### Development Environment
 
-### 2.2 Project Creation Steps
+- **IDE**: Visual Studio Code
+- **Language**: Java
+- **Prerequisites**: Java setup in Visual Studio Code (Documentation available in video description)
 
-1.  Use `Ctrl + Shift + P`.
-2.  Select `Java: Create Java project`.
-3.  Select `No build tools`.
-4.  Create the project on the desktop.
-5.  Name the project `whack-a-mole`.
+### Project Creation Steps
 
-### 2.3 Initial File Structure and Code
+1. Open Visual Studio Code
+2. Use keyboard shortcut: `Ctrl + Shift + P`
+3. Select "Java: Create Java Project"
+4. Choose "No build tools"
+5. Create project on Desktop
+6. Name the project: "whack-a-mole"
+7. This creates a project folder with a `src` folder containing `App.java`
 
-The project folder (`whackamole`) contains a `source` folder with `app.java` (which holds the `main` function).
+### Initial Project Structure
 
-In `app.java` (within the `main` function), delete the existing line and instantiate the main game class:
-
-```java
-whackamole whackamole = new whackamole();
+```
+whack-a-mole/
+├── src/
+│   ├── App.java
+│   ├── WhackAMole.java (create this file)
+│   ├── piranha.PNG (download)
+│   └── monty.PNG (download)
 ```
 
-Create a new file called `whackamole.java` in the `source` folder. All game logic will be written in this `whackamole` class.
+### Download Required Files
 
-### 2.4 Assets (Images)
+Before coding:
+1. Visit GitHub link in video description
+2. Download two image files:
+   - `piranha.PNG` (Piranha Plant image)
+   - `monty.PNG` (Mole image)
+3. Drag both images into the `src` folder
 
-1.  Find the GitHub link in the video description (for completed code).
-2.  Download the **two images** required.
-3.  Drag the two images into the `Source` folder.
+### Initial App.java Setup
 
-**Final Setup Structure:** `app.java`, `whack-a-mole.java`, and the two images.
-
-### 2.5 Required Import Statements
-
-The following libraries must be imported:
-
-```java
-import java.awt.Dimension; // Implicitly needed for size/layout properties
-import java.awt.*; // java.awt dot asterisk
-import java.awt.event.*; // java.awt dot event dot asterisk
-import java.util.Random; // Used to randomly place the mole and plant
-import javax.swing.*; // Java x dot swing dot asterisk
-```
-
-## 3. Creating the Game Window (JFrame)
-
-### 3.1 Window Dimensions
-
-*   Board Width (`boardWidth`): **600 pixels**.
-*   Board Height (`boardHeight`): **650 pixels**.
-    *   *Note:* The extra 50 pixels are added to provide room at the top of the window for displaying the score text.
-
-### 3.2 Setting Up the JFrame
-
-A `JFrame` called `frame` will serve as the window.
+Modify the default `App.java` file:
 
 ```java
-// Variable definition (implied):
-// int boardWidth = 600;
-// int boardHeight = 650;
-JFrame frame = new JFrame();
+public class App {
+    public static void main(String[] args) throws Exception {
+        new WhackAMole();
+    }
+}
 ```
 
-### 3.3 Window Properties (Within the Constructor)
+- Remove the default print statement
+- Create an instance of the `WhackAMole` class
+- Collapse the App.java file as main code goes in WhackAMole.java
 
-Set properties for the window (frame):
+## Game Window Setup
 
-| Property | Value | Description |
-| :--- | :--- | :--- |
-| Title | `"Mario whack a mole"` | Sets the window title. |
-| Size | `boardWidth, boardHeight` | Sets the size (600x650). |
-| Location | `null` | Opens the window at the center of the screen. |
-| Resizable | `false` | Prevents resizing. |
-| Default Close Operation | `JFrame.EXIT_ON_CLOSE` | Terminates the program when the 'X' button is clicked. |
-| Layout | `new BorderLayout()` | Sets the layout manager. |
+### Window Specifications
 
-*Note: `frame.setVisible(true)` is moved to the end of the constructor to ensure all components are loaded first before the window appears, preventing visual delays in button loading.*
+- **Width**: 600 pixels
+- **Height**: 650 pixels
+- **Note**: Game board is 600x600, but height is 650 to provide room for a score display text at the top
 
-## 4. Creating Panels and Components
+### Creating the Window Frame
 
-The window requires two main panels: one for the text (score) and one for the game board.
+```java
+// Create variables
+int boardWidth = 600;
+int boardHeight = 650;
+JFrame frame = new JFrame("Mario Whack-A-Mole");
+```
 
-### 4.1 Text Panel (Score Display)
+### Import Statements
 
-The text panel requires a `JLabel` to display the text and a `JPanel` to hold the label.
+Add these import statements at the top of WhackAMole.java:
 
-*   **Variable:** `JLabel textLabel`.
-*   **Variable:** `JPanel textPanel` (implied).
+```java
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Random;
+import javax.swing.*;
+```
 
-#### 4.1.1 Text Label Properties
+### Frame Properties
 
-Set the properties for `textLabel` within the constructor:
+Set frame properties in the constructor:
+
+```java
+frame.setVisible(true);
+frame.setSize(boardWidth, boardHeight);
+frame.setLocationRelativeTo(null);  // Opens window at center of screen
+frame.setResizable(false);
+frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // X button terminates program
+frame.setLayout(new BorderLayout());
+```
+
+### Important Note on Timing
+
+Place `frame.setVisible(true)` at the very end of the constructor after all components are added. This ensures all components load before the window becomes visible, preventing slow loading of individual buttons.
+
+## Text Panel and Score Display
+
+### Creating the Text Panel
+
+```java
+// Create text label
+JLabel textLabel = new JLabel();
+
+// Create text panel to hold label
+JPanel textPanel = new JPanel();
+```
+
+### Formatting the Text Label
 
 ```java
 textLabel.setFont(new Font("Arial", Font.PLAIN, 50));
-textLabel.setHorizontalAlignment(JLabel.CENTER); // Centers the text
+textLabel.setHorizontalAlignment(JLabel.CENTER);  // Centers text horizontally
 textLabel.setText("Score: 0");
-textLabel.setOpaque(true); // Ensures background color is visible
+textLabel.setOpaque(true);  // Makes background visible
 ```
 
-#### 4.1.2 Text Panel Assembly and Positioning
+### Adding to Frame
 
 ```java
 textPanel.setLayout(new BorderLayout());
 textPanel.add(textLabel);
-
-// Add text panel to the frame at the North position (top):
-frame.add(textPanel, BorderLayout.NORTH);
+frame.add(textPanel, BorderLayout.NORTH);  // BorderLayout.NORTH pushes panel to top
 ```
 
-### 4.2 Board Panel (Game Area)
+## Game Board Panel Setup
 
-The board panel (`boardPanel`) will hold the nine clickable tiles.
-
-```java
-Jpanel boardPanel = new Jpanel();
-```
-
-#### 4.2.1 Board Panel Properties
+### Creating the Board Panel
 
 ```java
-// Set layout for a 3x3 grid:
-boardPanel.setLayout(new GridLayout(3, 3)); 
-
+JPanel boardPanel = new JPanel();
+boardPanel.setLayout(new GridLayout(3, 3));  // 3x3 grid of tiles
 frame.add(boardPanel);
 ```
 
-*Note: Setting `boardPanel.setBackground(Color.BLACK)` can be used to visualize the panel initially, but it is commented out for the final design.*
-
-#### 4.2.2 Creating Tiles (Buttons)
-
-An array of `JButton` called `board` is used to keep track of all nine buttons.
+### Optional Styling
 
 ```java
-JButton[] board; // Array to keep track of all nine buttons
+boardPanel.setBackground(Color.BLACK);  // Optional: makes background visible during development
+```
 
+## Creating Buttons for Tiles
+
+### Button Array Setup
+
+Create an array to track all nine buttons:
+
+```java
+JButton[] board = new JButton[9];
+```
+
+### Creating and Adding Buttons
+
+Use a for loop to create nine buttons:
+
+```java
 for (int i = 0; i < 9; i++) {
     JButton tile = new JButton();
     board[i] = tile;
-    
-    // Hide the focus rectangle when clicked:
-    tile.setFocusable(false);
-    
-    // Add the tile to the board panel:
     boardPanel.add(tile);
-    
-    // Add action listener here (Implemented later in Section 6.1)
 }
 ```
 
-## 5. Loading and Scaling Images
+Each button represents one tile on the game board.
 
-Since the original image sizes are too large for the buttons, the images must be scaled before creating the `ImageIcon`.
+## Loading and Scaling Images
 
-### 5.1 Image Variables
+### Image Files
 
-```java
-ImageIcon moleIcon;
-ImageIcon plantIcon;
-```
+The game uses two image files:
+- `piranha.PNG` - Piranha Plant image
+- `monty.PNG` - Mole (Monty from Mario) image
 
-### 5.2 Scaling Process (Plant Example)
+### Loading and Scaling Images
 
-Instead of directly creating an `ImageIcon`, load the image, scale it, and then create the icon.
-
-1.  **Get Image (Plant):** The image file is `piranha.PNG`.
-    ```java
-    Image plantImage = new ImageIcon(
-        getClass().getResource("./piranha.PNG")).getImage();
-    ```
-2.  **Scale and Create Icon (Plant):** Scale the image to **150 pixels by 150 pixels**.
-    ```java
-    plantIcon = new ImageIcon(
-        plantImage.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH)
-    );
-    ```
-
-### 5.3 Scaling Process (Mole Example)
-
-1.  **Get Image (Mole):** The name of the mole in Mario is **Monty**. The image file is `Monty.PNG`.
-    ```java
-    Image moleImage = new ImageIcon(
-        getClass().getResource("./Monty.PNG")).getImage();
-    ```
-2.  **Scale and Create Icon (Mole):**
-    ```java
-    moleIcon = new ImageIcon(
-        moleImage.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH)
-    );
-    ```
-
-## 6. Game Logic Initialization
-
-The game needs variables to track the position of the mole and plant, a random utility, timers for movement, and a score variable.
-
-### 6.1 Game Variables
+The images must be scaled to fit the buttons (150x150 pixels). The process involves two steps:
 
 ```java
-JButton curMoleTile; // Keeps track of the tile with the mole
-JButton curPlantTile; // Keeps track of the tile with the plant
-Random random = new Random();
-Timer setMoleTimer;
-Timer setPlantTimer;
-int score = 0;
+// Load mole image
+Image moleImage = new ImageIcon(getClass().getResource("./monty.PNG")).getImage();
+ImageIcon moleIcon = new ImageIcon(moleImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
+
+// Load plant image
+Image plantImage = new ImageIcon(getClass().getResource("./piranha.PNG")).getImage();
+ImageIcon plantIcon = new ImageIcon(plantImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
 ```
 
-### 6.2 Mole Movement Timer (`setMoleTimer`)
+### Explanation of Image Loading Process
 
-The timer is set to run every 1000 milliseconds (1 second).
+1. **getClass().getResource()** - Loads the image file from the source folder
+2. **getImage()** - Extracts the actual image from the ImageIcon
+3. **getScaledInstance(150, 150, Image.SCALE_SMOOTH)** - Resizes image to 150x150 pixels with smooth scaling
+4. **new ImageIcon()** - Converts scaled image back to ImageIcon for button display
+
+### Why Two-Step Process?
+
+- Cannot directly set ImageIcon from file path with scaling
+- Must first get the image, then scale it, then create ImageIcon from scaled image
+
+### Removing Button Focus Rectangle
+
+Disable the focus rectangle that appears when buttons are clicked:
+
+```java
+tile.setFocusable(false);
+```
+
+## Variables for Game State
+
+Create these instance variables to track game state:
+
+```java
+JButton currentMoleTile;      // Tracks which button currently has the mole
+JButton currentPlantTile;     // Tracks which button currently has the plant
+Random random = new Random();  // For random tile selection
+Timer setMoleTimer;            // Timer to move mole to new tiles
+Timer setPlantTimer;           // Timer to move plant to new tiles
+int score = 0;                 // Tracks player score
+```
+
+## Moving the Mole
+
+### Mole Timer Setup
+
+Create a timer that moves the mole every 1000 milliseconds (1 second):
 
 ```java
 setMoleTimer = new Timer(1000, new ActionListener() {
     public void actionPerformed(ActionEvent e) {
-        // 1. Clear previous mole position
-        if (curMoleTile != null) {
-            curMoleTile.setIcon(null); // Remove the image
-            curMoleTile = null;
+        // Remove mole from current tile
+        if (currentMoleTile != null) {
+            currentMoleTile.setIcon(null);  // Remove image from button
+            currentMoleTile = null;
         }
         
-        // 2. Select random tile (0 to 8)
-        int num = random.nextInt(9);
+        // Select random tile
+        int num = random.nextInt(9);  // Random number 0-8
         JButton tile = board[num];
-
-        // 3. Conflict Check: Skip if plant is already on this tile
-        // If tile is occupied by plant, skip tile for this turn
-        if (curPlantTile == tile) {
-            return;
+        
+        // Check if plant is on this tile (avoid conflict)
+        if (currentPlantTile == tile) {
+            return;  // Skip this turn
         }
         
-        // 4. Set new mole position
-        curMoleTile = tile;
-        curMoleTile.setIcon(moleIcon);
+        // Place mole on new tile
+        currentMoleTile = tile;
+        currentMoleTile.setIcon(moleIcon);
     }
 });
 
 setMoleTimer.start();
 ```
 
-### 6.3 Plant Movement Timer (`setPlantTimer`)
+### Why Use Intermediate Variable?
 
-The timer is set to run every 1500 milliseconds (1.5 seconds).
+The code uses:
+```java
+JButton tile = board[num];
+```
+
+Instead of:
+```java
+currentMoleTile = board[num];
+```
+
+This is because there's an edge case that must be covered (conflict checking with plant tile).
+
+## Moving the Plant
+
+### Plant Timer Setup
+
+Create a timer that moves the plant every 1500 milliseconds (1.5 seconds):
 
 ```java
 setPlantTimer = new Timer(1500, new ActionListener() {
     public void actionPerformed(ActionEvent e) {
-        // 1. Clear previous plant position
-        if (curPlantTile != null) {
-            curPlantTile.setIcon(null);
-            curPlantTile = null;
+        // Remove plant from current tile
+        if (currentPlantTile != null) {
+            currentPlantTile.setIcon(null);  // Remove image from button
+            currentPlantTile = null;
         }
         
-        // 2. Select random tile (0 to 8)
-        int num = random.nextInt(9);
+        // Select random tile
+        int num = random.nextInt(9);  // Random number 0-8
         JButton tile = board[num];
-
-        // 3. Conflict Check: Skip if mole is already on this tile
-        // If curMoleTile is equal to tile, the mole is already on this tile
-        if (curMoleTile == tile) {
-            return;
+        
+        // Check if mole is on this tile (avoid conflict)
+        if (currentMoleTile == tile) {
+            return;  // Skip this turn
         }
-
-        // 4. Set new plant position
-        curPlantTile = tile;
-        curPlantTile.setIcon(plantIcon);
+        
+        // Place plant on new tile
+        currentPlantTile = tile;
+        currentPlantTile.setIcon(plantIcon);
     }
 });
 
 setPlantTimer.start();
 ```
 
-**Conflict Resolution Rationale:** Without the conflict check (`return` statement), if both timers selected the same tile, one icon would overwrite the other. Although the two tile variables (`curPlantTile` and `curMoleTile`) might point to the same tile, only one icon can be displayed, causing issues when the player clicks the button. The conflict check ensures that if one tile is already occupied, the other object skips that position for the current turn, preventing ambiguity.
+### Why Different Timer Values?
 
-## 7. Button Click Handler (Gameplay)
+- Mole: 1000 milliseconds (moves every second)
+- Plant: 1500 milliseconds (moves every 1.5 seconds)
+- This creates variety in movement patterns
 
-An `ActionListener` must be added to each tile (button) within the initialization loop.
+## Handling Tile Conflicts
 
-### 7.1 Action Listener Implementation
+### The Conflict Problem
 
+Since there are only 9 tiles and two separate timers randomly placing mole and plant:
+- High chance both timers select the same tile
+- One icon overwrites the other
+- Only one image displays on the shared tile
+- Game logic becomes inconsistent
+
+### Solution: Tile Occupancy Check
+
+When placing mole or plant, check if the target tile is occupied:
+
+**In Mole Timer:**
 ```java
-// Inside the 'for' loop (Section 4.2.2):
-tile.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        // 1. Identify the clicked button (casting necessary as getSource returns Object)
-        JButton tile = (JButton) e.getSource();
-
-        // 2. Check for Mole Hit
-        if (tile == curMoleTile) {
-            score += 10; // Increment score by 10
-            textLabel.setText("Score: " + Integer.toString(score));
-        } 
-        
-        // 3. Check for Plant Hit (Game Over)
-        else if (tile == curPlantTile) {
-            textLabel.setText("Game Over");
-
-            // Stop Game Logic (See Section 7.2)
-            setMoleTimer.stop();
-            setPlantTimer.stop();
-            
-            // Disable all buttons
-            for (int i = 0; i < 9; i++) {
-                board[i].setEnabled(false); // Disables interaction
-            }
-        }
-    }
-});
+if (currentPlantTile == tile) {
+    return;  // Skip this turn if plant is here
+}
 ```
 
-### 7.2 Game Over Functionality
+**In Plant Timer:**
+```java
+if (currentMoleTile == tile) {
+    return;  // Skip this turn if mole is here
+}
+```
 
-Upon hitting the plant (`Game Over`), two issues must be fixed: the ability to still score points and the continued movement of the mole/plant.
+### How It Works
 
-The solution involves:
+1. If selected tile already has mole or plant, return early
+2. The current icon remains on that tile
+3. No overwriting occurs
+4. Game logic remains consistent
 
-1.  Stopping the timers: `setMoleTimer.stop()` and `setPlantTimer.stop()`.
-2.  Disabling all buttons: Iterating through the `board` array and setting `Board[i].setEnabled(false)`. This causes the buttons to appear grayed out and unclickable.
+## Detecting Button Clicks
 
-## 8. Potential Enhancements
+### Adding Click Listeners to Tiles
 
-The fully functional game can be enhanced with further development:
+In the for loop where buttons are created, add an action listener to each button:
 
-1.  **Multiple Piranha Plants:** Modify the game to have more than one piranha plant appear.
-2.  **Reset Button:** Add a button to reset the game, allowing the player to play again without rerunning the program.
-3.  **High Score:** Add a variable to track and display the all-time high score in the window.
+```java
+for (int i = 0; i < 9; i++) {
+    JButton tile = new JButton();
+    board[i] = tile;
+    boardPanel.add(tile);
+    
+    // Add click handler
+    tile.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            JButton clickedTile = (JButton) e.getSource();
+            
+            // Check if clicked on mole
+            if (clickedTile == currentMoleTile) {
+                score += 10;  // Add 10 points
+                textLabel.setText("Score: " + Integer.toString(score));
+            }
+            // Check if clicked on plant
+            else if (clickedTile == currentPlantTile) {
+                textLabel.setText("Game Over");
+                
+                // Stop movement
+                setMoleTimer.stop();
+                setPlantTimer.stop();
+                
+                // Disable all buttons
+                for (int i = 0; i < 9; i++) {
+                    board[i].setEnabled(false);
+                }
+            }
+        }
+    });
+}
+```
+
+### Type Casting
+
+```java
+JButton clickedTile = (JButton) e.getSource();
+```
+
+- `e.getSource()` returns an Object
+- Must cast to JButton to access button-specific methods
+
+### Mole Click Behavior
+
+- Increment score by 10 points
+- Update score text display
+- Mole continues moving (no stopping)
+- Player can continue playing
+
+### Plant Click Behavior
+
+- Display "Game Over" text
+- Stop mole timer: `setMoleTimer.stop()`
+- Stop plant timer: `setPlantTimer.stop()`
+- Disable all buttons: `board[i].setEnabled(false)`
+- Mole and plant stop moving
+- Buttons become grayed out and unclickable
+
+## Complete Game Flow
+
+### Game Sequence
+
+1. Window opens with 3x3 grid of buttons
+2. Score displays at top as "Score: 0"
+3. Mole randomly appears on one tile and moves every 1 second
+4. Plant randomly appears on different tile and moves every 1.5 seconds
+5. Player clicks on tiles containing mole to earn points (+10 each)
+6. Player tries to avoid clicking on tile with plant
+7. Clicking plant triggers "Game Over"
+8. When game ends:
+   - Timers stop
+   - All buttons disabled
+   - Text changes to "Game Over"
+
+### Important Implementation Details
+
+- Mole and plant can never occupy same tile (prevented by checks)
+- Score updates only when mole is clicked
+- Game cannot be played after "Game Over" unless program is restarted
+- Focus rectangles removed from buttons for cleaner appearance
+- All components load before window becomes visible
+
+## Possible Enhancements
+
+The basic game can be improved with these features:
+
+### Enhancement 1: Multiple Piranha Plants
+
+- Add multiple plant instances
+- Create additional plant tracking variables
+- Currently only one plant exists
+
+### Enhancement 2: Reset Button
+
+- Add button to reset the game
+- Player can play multiple rounds without restarting program
+- Implement reset logic to reinitialize game state
+
+### Enhancement 3: High Score Tracking
+
+- Create variable to track all-time high score
+- Display high score on screen
+- Compare current score with high score
+- Persist high score between games
+
+## Complete Code Structure
+
+### Class Variables (Instance Variables)
+
+```java
+int boardWidth = 600;
+int boardHeight = 650;
+JFrame frame;
+JPanel textPanel;
+JLabel textLabel;
+JPanel boardPanel;
+JButton[] board;
+ImageIcon moleIcon;
+ImageIcon plantIcon;
+JButton currentMoleTile;
+JButton currentPlantTile;
+Random random;
+Timer setMoleTimer;
+Timer setPlantTimer;
+int score;
+```
+
+### Constructor Method
+
+Contains all initialization code:
+- Frame setup
+- Component creation
+- Image loading and scaling
+- Button creation with event listeners
+- Timer setup with movement logic
+- Frame visibility set at end
+
+## Key Concepts Learned
+
+### GUI Components
+- JFrame: Main window container
+- JPanel: Layout containers (text panel, board panel)
+- JButton: Interactive tiles
+- JLabel: Text display
+
+### Layouts
+- BorderLayout: For overall window layout (North for text panel)
+- GridLayout: For 3x3 button grid
+
+### Event Handling
+- ActionListener: Handles button clicks
+- Timer: Handles repeating events (mole/plant movement)
+- ActionEvent: Contains event information
+
+### Image Processing
+- Loading images from files using getResource()
+- Scaling images to specific dimensions
+- Converting images to ImageIcons for display
+- Using ImageIcon objects on buttons
+
+### Game Logic
+- State tracking (current mole/plant position, score)
+- Conflict prevention (checking tile occupancy)
+- Game flow control (stopping timers, disabling buttons)
+- User feedback (updating score display)
+
+## Development Notes
+
+### Performance Tip
+
+Set `frame.setVisible(true)` at the very end of constructor to ensure all components load before window displays. This prevents UI components from appearing slowly one by one.
+
+### Testing Approach
+
+- Test each component as it's added
+- Verify image scaling displays correctly
+- Check that mole and plant move independently
+- Verify no conflicts occur on same tile
+- Test click detection for both mole and plant
+- Confirm game ends properly on plant click
+
+### Debugging
+
+- Use `setBackground(Color.BLACK)` temporarily to visualize panel boundaries
+- Watch console for any import errors
+- Verify image file names match exactly (case-sensitive)
+- Check that resource paths use correct file names with extensions
+
+## Conclusion
+
+This Documentation covers all fundamental aspects of creating a GUI game in Java:
+- Window and component creation
+- Image loading and manipulation
+- Event-driven programming with listeners and timers
+- Game state management
+- User interaction and feedback
+
+The resulting game is fully functional and provides a solid foundation for learning GUI programming concepts.
+
+---
+End-of-File
+
+The [KintsugiStack](https://github.com/kintsugi-programmer/KintsugiStack) repository, authored by Kintsugi-Programmer, is less a comprehensive resource and more an Artifact of Continuous Research and Deep Inquiry into Computer Science and Software Engineering. It serves as a transparent ledger of the author's relentless pursuit of mastery, from the foundational algorithms to modern full-stack implementation.
+
+> Made with 💚 [Kintsugi-Programmer](https://github.com/kintsugi-programmer)
