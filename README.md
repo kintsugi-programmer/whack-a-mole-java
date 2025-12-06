@@ -14,6 +14,78 @@ assets, timed mole and Plant movement, score tracking, and game-over logic.
 
 > Disclaimer: The content presented here is a curated blend of my personal learning journey, experiences, open-source documentation, and invaluable knowledge gained from diverse sources. I do not claim sole ownership over all the material; this is a community-driven effort to learn, share, and grow together.
 
+## Table of Contents
+- [whack-a-mole-java](#whack-a-mole-java)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+    - [Game Overview](#game-overview)
+  - [Project Setup](#project-setup)
+    - [Development Environment](#development-environment)
+    - [Project Creation Steps](#project-creation-steps)
+    - [Initial Project Structure](#initial-project-structure)
+    - [Download Required Files](#download-required-files)
+    - [Initial App.java Setup](#initial-appjava-setup)
+  - [Game Window Setup](#game-window-setup)
+    - [Window Specifications](#window-specifications)
+    - [Creating the Window Frame](#creating-the-window-frame)
+    - [Import Statements](#import-statements)
+    - [Frame Properties](#frame-properties)
+    - [Important Note on Timing](#important-note-on-timing)
+  - [Text Panel and Score Display](#text-panel-and-score-display)
+    - [Creating the Text Panel](#creating-the-text-panel)
+    - [Formatting the Text Label](#formatting-the-text-label)
+    - [Adding to Frame](#adding-to-frame)
+  - [Game Board Panel Setup](#game-board-panel-setup)
+    - [Creating the Board Panel](#creating-the-board-panel)
+    - [Optional Styling](#optional-styling)
+  - [Creating Buttons for Tiles](#creating-buttons-for-tiles)
+    - [Button Array Setup](#button-array-setup)
+    - [Creating and Adding Buttons](#creating-and-adding-buttons)
+  - [Loading and Scaling Images](#loading-and-scaling-images)
+    - [Image Files](#image-files)
+    - [Loading and Scaling Images](#loading-and-scaling-images-1)
+    - [Explanation of Image Loading Process](#explanation-of-image-loading-process)
+    - [Why Two-Step Process?](#why-two-step-process)
+    - [Removing Button Focus Rectangle](#removing-button-focus-rectangle)
+  - [Variables for Game State](#variables-for-game-state)
+  - [Moving the Mole](#moving-the-mole)
+    - [Mole Timer Setup](#mole-timer-setup)
+    - [Why Use Intermediate Variable?](#why-use-intermediate-variable)
+  - [Moving the Plant](#moving-the-plant)
+    - [Plant Timer Setup](#plant-timer-setup)
+    - [Why Different Timer Values?](#why-different-timer-values)
+  - [Handling Tile Conflicts](#handling-tile-conflicts)
+    - [The Conflict Problem](#the-conflict-problem)
+    - [Solution: Tile Occupancy Check](#solution-tile-occupancy-check)
+    - [How It Works](#how-it-works)
+  - [Detecting Button Clicks](#detecting-button-clicks)
+    - [Adding Click Listeners to Tiles](#adding-click-listeners-to-tiles)
+    - [Type Casting](#type-casting)
+    - [Mole Click Behavior](#mole-click-behavior)
+    - [Plant Click Behavior](#plant-click-behavior)
+  - [Complete Game Flow](#complete-game-flow)
+    - [Game Sequence](#game-sequence)
+    - [Important Implementation Details](#important-implementation-details)
+  - [Possible Enhancements](#possible-enhancements)
+    - [Enhancement 1: Multiple Piranha Plants](#enhancement-1-multiple-piranha-plants)
+    - [Enhancement 2: Reset Button](#enhancement-2-reset-button)
+    - [Enhancement 3: High Score Tracking](#enhancement-3-high-score-tracking)
+  - [Complete Code Structure](#complete-code-structure)
+    - [Class Variables (Instance Variables)](#class-variables-instance-variables)
+    - [Constructor Method](#constructor-method)
+  - [Key Concepts Learned](#key-concepts-learned)
+    - [GUI Components](#gui-components)
+    - [Layouts](#layouts)
+    - [Event Handling](#event-handling)
+    - [Image Processing](#image-processing)
+    - [Game Logic](#game-logic)
+  - [Development Notes](#development-notes)
+    - [Performance Tip](#performance-tip)
+    - [Testing Approach](#testing-approach)
+    - [Debugging](#debugging)
+  - [Conclusion](#conclusion)
+
+
 ## Introduction
 
 This Documentation teaches how to create a simple Whack-a-Mole game in Java with a graphical user interface (GUI). This is an excellent beginner project for those starting to learn Java and GUI development.
@@ -44,6 +116,29 @@ This Documentation teaches how to create a simple Whack-a-Mole game in Java with
 5. Create project on Desktop
 6. Name the project: "whack-a-mole"
 7. This creates a project folder with a `src` folder containing `App.java`
+
+- java readme default
+```md
+## Getting Started
+
+Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+
+## Folder Structure
+
+The workspace contains two folders by default, where:
+
+- `src`: the folder to maintain sources
+- `lib`: the folder to maintain dependencies
+
+Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+
+> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+
+## Dependency Management
+
+The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+
+```
 
 ### Initial Project Structure
 
