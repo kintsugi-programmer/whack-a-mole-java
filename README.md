@@ -224,7 +224,10 @@ frame.setResizable(false);
 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // X button terminates program
 frame.setLayout(new BorderLayout());
 ```
+this will create empty window blank, when run App.java
 
+![alt text](progress/image.png)
+st
 ### Important Note on Timing
 
 Place `frame.setVisible(true)` at the very end of the constructor after all components are added. This ensures all components load before the window becomes visible, preventing slow loading of individual buttons.
@@ -244,7 +247,7 @@ JPanel textPanel = new JPanel();
 ### Formatting the Text Label
 
 ```java
-textLabel.setFont(new Font("Arial", Font.PLAIN, 50));
+textLabel.setFont(new Font("Arial", Font.PLAIN, 50));// 50px
 textLabel.setHorizontalAlignment(JLabel.CENTER);  // Centers text horizontally
 textLabel.setText("Score: 0");
 textLabel.setOpaque(true);  // Makes background visible
@@ -254,9 +257,11 @@ textLabel.setOpaque(true);  // Makes background visible
 
 ```java
 textPanel.setLayout(new BorderLayout());
-textPanel.add(textLabel);
-frame.add(textPanel, BorderLayout.NORTH);  // BorderLayout.NORTH pushes panel to top
+textPanel.add(textLabel);// add textLabel in textPanel
+frame.add(textPanel, BorderLayout.NORTH);  // BorderLayout.NORTH pushes panel to top // add textPanel to frame
 ```
+
+![alt text](progress/image-2.png)
 
 ## Game Board Panel Setup
 
