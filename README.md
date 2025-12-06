@@ -69,7 +69,7 @@ assets, timed mole and Plant movement, score tracking, and game-over logic.
   - [Possible Enhancements](#possible-enhancements)
     - [Enhancement 1: Hole instead of null spaces](#enhancement-1-hole-instead-of-null-spaces)
     - [Enhancement 2: GameOver Mole Teasing Buttons](#enhancement-2-gameover-mole-teasing-buttons)
-    - [Enhancement 3: Multiple Piranha Plants](#enhancement-3-multiple-piranha-plants)
+    - [Enhancement 3: Second Piranha Plant](#enhancement-3-second-piranha-plant)
     - [Enhancement 4: Reset Button](#enhancement-4-reset-button)
     - [Enhancement 5: High Score Tracking](#enhancement-5-high-score-tracking)
   - [Complete Code Structure](#complete-code-structure)
@@ -680,11 +680,26 @@ for (int i = 0; i<9; i++){
 }
 ```
 
-### Enhancement 3: Multiple Piranha Plants
+![alt text](progress/image-16.png)
 
-- Add multiple plant instances
-- Create additional plant tracking variables
-- Currently only one plant exists
+### Enhancement 3: Second Piranha Plant
+
+This enhancement adds a **second independent Piranha Plant** to the game, increasing difficulty without changing the core mechanics.
+
+**Implementation details:**
+- A new variable `currentPlantTile2` tracks the second plant’s position.
+- A second timer `setPlantTimer2` controls the movement of the second plant.
+- Each plant:
+  - Moves on its own timer interval.
+  - Cannot occupy the same tile as the mole.
+  - Cannot occupy the same tile as the other plant.
+- Clicking **either** plant immediately ends the game.
+
+**Gameplay impact:**
+- Players must now track two hazards instead of one.
+- Different timer intervals create unpredictable movement patterns.
+- The difficulty increases naturally while keeping the implementation simple and readable.
+
 
 ### Enhancement 4: Reset Button
 

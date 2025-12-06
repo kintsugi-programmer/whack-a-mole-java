@@ -22,10 +22,10 @@ public class WhackAMole {
 
     // game stats vars
     JButton currentMoleTile;
-    JButton currentPlantTile;
+    JButton currentPlantTile,currentPlantTile2;
     Random random = new Random();
     Timer setMoleTimer;
-    Timer setPlantTimer;
+    Timer setPlantTimer,setPlantTimer2;
     int score = 0;
 
     // Constructor
@@ -95,12 +95,13 @@ public class WhackAMole {
                     }
 
                     // GameOver Logic, when Click Plant
-                    else if (clickedTile==currentPlantTile){
+                    else if (clickedTile==currentPlantTile || clickedTile==currentPlantTile2){
                         textLabel.setText("Game Over");
 
                         // Stop Movement of Objects
                         setMoleTimer.stop();
                         setPlantTimer.stop();
+                        setPlantTimer2.stop();
 
                         // Disable all buttons
                         for (int i = 0; i<9; i++){
@@ -133,7 +134,7 @@ public class WhackAMole {
                 JButton tile = board[num];
 
                 // Check if plant is on this tile (avoid conflict)
-                if (currentPlantTile == tile ){return;} // skip
+                if (currentPlantTile == tile || currentPlantTile2 == tile){return;} // skip
 
                 // Place mole on new tile
                 currentMoleTile = tile;
@@ -142,7 +143,7 @@ public class WhackAMole {
             }
         });
 
-        setPlantTimer = new Timer(850, new ActionListener() { // 1.5 sec, init ActionListner
+        setPlantTimer = new Timer(500, new ActionListener() { // 1.5 sec, init ActionListner
             public void actionPerformed(ActionEvent e){
                 // Remove mole from current tile
                 if (currentPlantTile != null){ // if button is not null
@@ -160,7 +161,7 @@ public class WhackAMole {
                 JButton tile = board[num];
 
                 // Check if mole is on this tile (avoid conflict)
-                if (currentMoleTile == tile ){return;} // skip
+                if (currentMoleTile == tile || currentPlantTile2 == tile ){return;} // skip
 
                 // Place plant on new tile
                 currentPlantTile = tile;
@@ -168,8 +169,35 @@ public class WhackAMole {
             }
         });
 
+        setPlantTimer2 = new Timer(850, new ActionListener() { // 1.5 sec, init ActionListner
+            public void actionPerformed(ActionEvent e){
+                // Remove mole from current tile
+                if (currentPlantTile2 != null){ // if button is not null
+                    currentPlantTile2.setIcon(holeIcon); // clear the hole, replace plant/mole with hole
+                    currentPlantTile2 = null;
+                }
+
+                // // old normal way, but doesn't check if other object also have same tile or not
+                // currentPlantTile2 = board[random.nextInt(9)];
+                // currentPlantTile2.setIcon(moleIcon);
+
+                // new way, makes objects of random number and check if plant already is at tile
+                // Select random tile
+                int num = random.nextInt(9); // random 0 to 8
+                JButton tile = board[num];
+
+                // Check if mole is on this tile (avoid conflict)
+                if (currentMoleTile == tile || currentPlantTile == tile ){return;} // skip
+
+                // Place plant on new tile
+                currentPlantTile2 = tile;
+                currentPlantTile2.setIcon(plantIcon);
+            }
+        });
+
             setMoleTimer.start();
             setPlantTimer.start();
+            setPlantTimer2.start();
             frame.setVisible(true);// visibility, only after loading everything
         }
     
