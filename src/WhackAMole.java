@@ -1,6 +1,7 @@
 // Import Packages
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 import java.util.random.*;
 import javax.swing.*;
 
@@ -17,6 +18,13 @@ public class WhackAMole {
     ImageIcon moleIcon;
     ImageIcon plantIcon;
 
+    // game stats vars
+    JButton currentMoleTile;
+    JButton currentPlantTile;
+    Random random = new Random();
+    Timer setMoleTimer;
+    Timer setPlantTimer;
+    int score = 0;
 
     // Constructor
     WhackAMole(){
@@ -65,7 +73,7 @@ public class WhackAMole {
             JButton tile = new JButton();
             board[i] = tile;
             boardPanel.add(tile); // appending to boardPanel Grid one-by-one
-            tile.setIcon(moleIcon);
+            tile.setIcon(moleIcon); // debugging purpoes
             tile.setFocusable(false);
 
         }   // Each button represents one tile on the game board.
