@@ -92,7 +92,7 @@ This Documentation teaches how to create a simple Whack-a-Mole game in Java with
 
 ### Game Overview
 
-- **Game Elements**: Uses images from the Mario franchise
+- **Game Elements**: Uses images AI-Generated
 - **Game Board**: Nine tiles arranged in a 3x3 grid
 - **Main Character**: A mole that hops around the tiles
 - **Obstacle**: A Piranha Plant that also moves around the board
@@ -174,10 +174,16 @@ public class App {
 
 - Remove the default print statement
 - Create an instance of the `WhackAMole` class
+    ```java
+    public class WhackAMole {
+    }
+    ```
 - Collapse the App.java file as main code goes in WhackAMole.java
 
 ## Game Window Setup
 
+- creating window
+- 
 ### Window Specifications
 
 - **Width**: 600 pixels
@@ -190,7 +196,7 @@ public class App {
 // Create variables
 int boardWidth = 600;
 int boardHeight = 650;
-JFrame frame = new JFrame("Mario Whack-A-Mole");
+JFrame frame = new JFrame("Whack-A-Mole");
 ```
 
 ### Import Statements
@@ -198,11 +204,13 @@ JFrame frame = new JFrame("Mario Whack-A-Mole");
 Add these import statements at the top of WhackAMole.java:
 
 ```java
-import java.awt.*;
+import java.awt.*; // GUI
 import java.awt.event.*;
-import java.util.Random;
-import javax.swing.*;
+import java.util.Random; // Random Positions
+import javax.swing.*; // GUI , Contain JFrame
 ```
+
+> Originally javax was intended to be for extensions, and sometimes things would be promoted out of javax into java.
 
 ### Frame Properties
 
@@ -296,7 +304,7 @@ Each button represents one tile on the game board.
 
 The game uses two image files:
 - `piranha.PNG` - Piranha Plant image
-- `monty.PNG` - Mole (Monty from Mario) image
+- `monty.PNG` - Mole image
 
 ### Loading and Scaling Images
 
