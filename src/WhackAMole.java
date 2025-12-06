@@ -18,6 +18,7 @@ public class WhackAMole {
     ImageIcon moleIcon;
     ImageIcon plantIcon;
     ImageIcon holeIcon;
+    ImageIcon molemockingIcon;
 
     // game stats vars
     JButton currentMoleTile;
@@ -63,11 +64,12 @@ public class WhackAMole {
         Image moleImage = new ImageIcon(getClass().getResource("./monty.png")).getImage();
         Image plantImage = new ImageIcon(getClass().getResource("./piranha.png")).getImage();
         Image holeImage = new ImageIcon(getClass().getResource("./hole.png")).getImage();
+        Image molemockingImage = new ImageIcon(getClass().getResource("./montymocking.png")).getImage();
         // Create Icon of scaling that Image Object
         moleIcon = new ImageIcon(moleImage.getScaledInstance(250, 250, Image.SCALE_SMOOTH));
         plantIcon = new ImageIcon(plantImage.getScaledInstance(250, 250, Image.SCALE_SMOOTH));
         holeIcon = new ImageIcon(holeImage.getScaledInstance(250, 250, Image.SCALE_SMOOTH));
-
+        molemockingIcon = new ImageIcon(molemockingImage.getScaledInstance(250, 250, Image.SCALE_SMOOTH));
 
 
         // constructing buttons/ tiles 
@@ -102,6 +104,7 @@ public class WhackAMole {
 
                         // Disable all buttons
                         for (int i = 0; i<9; i++){
+                            board[i].setIcon(molemockingIcon);
                             board[i].setEnabled(false);
                         }
                     }

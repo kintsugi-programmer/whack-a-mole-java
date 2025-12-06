@@ -68,9 +68,10 @@ assets, timed mole and Plant movement, score tracking, and game-over logic.
     - [Important Implementation Details](#important-implementation-details)
   - [Possible Enhancements](#possible-enhancements)
     - [Enhancement 1: Hole instead of null spaces](#enhancement-1-hole-instead-of-null-spaces)
-    - [Enhancement 2: Multiple Piranha Plants](#enhancement-2-multiple-piranha-plants)
-    - [Enhancement 3: Reset Button](#enhancement-3-reset-button)
-    - [Enhancement 4: High Score Tracking](#enhancement-4-high-score-tracking)
+    - [Enhancement 2: GameOver Mole Teasing Buttons](#enhancement-2-gameover-mole-teasing-buttons)
+    - [Enhancement 3: Multiple Piranha Plants](#enhancement-3-multiple-piranha-plants)
+    - [Enhancement 4: Reset Button](#enhancement-4-reset-button)
+    - [Enhancement 5: High Score Tracking](#enhancement-5-high-score-tracking)
   - [Complete Code Structure](#complete-code-structure)
     - [Class Variables (Instance Variables)](#class-variables-instance-variables)
     - [Constructor Method](#constructor-method)
@@ -619,7 +620,7 @@ JButton clickedTile = (JButton) e.getSource();
 - Mole and plant stop moving
 - Buttons become grayed out and unclickable
 
-
+![alt text](progress/image-14.png)
 
 ## Complete Game Flow
 
@@ -660,20 +661,38 @@ The basic game can be improved with these features:
 
 > then replace icon tiles `null` with `holeIcon`
 
+### Enhancement 2: GameOver Mole Teasing Buttons
+```java
+ImageIcon molemockingIcon;
+```
+```java
+// inside constructor
+Image molemockingImage = new ImageIcon(getClass().getResource("./montymocking.png")).getImage();
 
-### Enhancement 2: Multiple Piranha Plants
+molemockingIcon = new ImageIcon(molemockingImage.getScaledInstance(250, 250, Image.SCALE_SMOOTH));
+```
+```java
+// inside gameover logic
+// Disable all buttons
+for (int i = 0; i<9; i++){
+    board[i].setIcon(molemockingIcon);
+    board[i].setEnabled(false);
+}
+```
+
+### Enhancement 3: Multiple Piranha Plants
 
 - Add multiple plant instances
 - Create additional plant tracking variables
 - Currently only one plant exists
 
-### Enhancement 3: Reset Button
+### Enhancement 4: Reset Button
 
 - Add button to reset the game
 - Player can play multiple rounds without restarting program
 - Implement reset logic to reinitialize game state
 
-### Enhancement 4: High Score Tracking
+### Enhancement 5: High Score Tracking
 
 - Create variable to track all-time high score
 - Display high score on screen
