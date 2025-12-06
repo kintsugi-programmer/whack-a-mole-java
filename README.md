@@ -454,6 +454,8 @@ setMoleTimer = new Timer(1000, new ActionListener() {
 setMoleTimer.start();
 ```
 
+![alt text](progress/image-9.png)
+
 ### Why Use Intermediate Variable?
 
 The code uses:
@@ -501,11 +503,14 @@ setPlantTimer = new Timer(1500, new ActionListener() {
 setPlantTimer.start();
 ```
 
+
 ### Why Different Timer Values?
 
 - Mole: 1000 milliseconds (moves every second)
 - Plant: 1500 milliseconds (moves every 1.5 seconds)
 - This creates variety in movement patterns
+
+![alt text](progress/image-10.png)
 
 ## Handling Tile Conflicts
 

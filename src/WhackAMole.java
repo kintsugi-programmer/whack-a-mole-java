@@ -61,7 +61,7 @@ public class WhackAMole {
         // New Approach        
         // Create Image Objects
         Image moleImage = new ImageIcon(getClass().getResource("./monty.png")).getImage();
-        Image plantImage = new ImageIcon(getClass().getResource("./monty.png")).getImage();
+        Image plantImage = new ImageIcon(getClass().getResource("./piranha.png")).getImage();
         Image holeImage = new ImageIcon(getClass().getResource("./hole.png")).getImage();
         // Create Icon of scaling that Image Object
         moleIcon = new ImageIcon(moleImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
@@ -95,8 +95,21 @@ public class WhackAMole {
             }
         });
 
+        setPlantTimer = new Timer(1500, new ActionListener() { // 1.5 sec, init ActionListner
+            public void actionPerformed(ActionEvent e){
+                // Remove mole from current tile
+                if (currentPlantTile != null){ // if button is not null
+                    currentPlantTile.setIcon(holeIcon); // clear the hole, replace plant/mole with hole
+                    currentPlantTile = null;
+                }
+
+                currentPlantTile = board[random.nextInt(9)];
+                currentPlantTile.setIcon(plantIcon);
+            }
+        });
 
             setMoleTimer.start();
+            setPlantTimer.start();
             frame.setVisible(true);// visibility, only after loading everything
         }
     
