@@ -82,8 +82,21 @@ public class WhackAMole {
         }   // Each button represents one tile on the game board.
             // also clickable
 
+        setMoleTimer = new Timer(1000, new ActionListener() { // 1 sec, init ActionListner
+            public void actionPerformed(ActionEvent e){
+                // Remove mole from current tile
+                if (currentMoleTile != null){ // if button is not null
+                    currentMoleTile.setIcon(holeIcon); // clear the hole, replace plant/mole with hole
+                    currentMoleTile = null;
+                }
 
-        
+                currentMoleTile = board[random.nextInt(9)];
+                currentMoleTile.setIcon(moleIcon);
+            }
+        });
+
+
+            setMoleTimer.start();
             frame.setVisible(true);// visibility, only after loading everything
         }
     

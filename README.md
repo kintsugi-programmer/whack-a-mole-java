@@ -430,19 +430,24 @@ setMoleTimer = new Timer(1000, new ActionListener() {
             currentMoleTile.setIcon(null);  // Remove image from button
             currentMoleTile = null;
         }
+
+        // // normal way, but doesn't check if other object also have same tile or not
+        // currentMoleTile = board[random.nextInt(9)];
+        // currentMoleTile.setIcon(moleIcon);
         
-        // Select random tile
-        int num = random.nextInt(9);  // Random number 0-8
-        JButton tile = board[num];
-        
-        // Check if plant is on this tile (avoid conflict)
-        if (currentPlantTile == tile) {
-            return;  // Skip this turn
-        }
-        
-        // Place mole on new tile
-        currentMoleTile = tile;
-        currentMoleTile.setIcon(moleIcon);
+        // new way, makes objects of random number and check if plant already is at tile
+          // Select random tile
+          int num = random.nextInt(9);  // Random number 0-8
+          JButton tile = board[num];
+          
+          // Check if plant is on this tile (avoid conflict)
+          if (currentPlantTile == tile) {
+              return;  // Skip this turn
+          }
+          
+          // Place mole on new tile
+          currentMoleTile = tile;
+          currentMoleTile.setIcon(moleIcon);
     }
 });
 
@@ -637,9 +642,10 @@ The basic game can be improved with these features:
     // Inside constructor
     Image holeImage = new ImageIcon(getClass().getResource("./hole.png")).getImage();
     holeIcon = new ImageIcon(holeImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
-
-    // then replace null with holeIcon
 ```
+
+> then replace icon tiles `null` with `holeIcon`
+
 
 ### Enhancement 1: Multiple Piranha Plants
 
