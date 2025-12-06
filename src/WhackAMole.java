@@ -35,7 +35,7 @@ public class WhackAMole {
         // and making frame to hold textPanel
         textPanel.setLayout(new BorderLayout());
         textPanel.add(textLabel);
-        frame.add(textPanel);
+        frame.add(textPanel,BorderLayout.NORTH);
 
         
     }

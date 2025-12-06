@@ -258,10 +258,16 @@ textLabel.setOpaque(true);  // Makes background visible
 ```java
 textPanel.setLayout(new BorderLayout());
 textPanel.add(textLabel);// add textLabel in textPanel
-frame.add(textPanel, BorderLayout.NORTH);  // BorderLayout.NORTH pushes panel to top // add textPanel to frame
+frame.add(textPanel);// add textPanel to frame
 ```
 
 ![alt text](progress/image-2.png)
+
+```java
+frame.add(textPanel, BorderLayout.NORTH);  // BorderLayout.NORTH pushes panel to top // add textPanel to frame
+```
+
+![alt text](progress/image-3.png)
 
 ## Game Board Panel Setup
 
