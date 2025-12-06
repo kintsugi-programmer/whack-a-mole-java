@@ -37,6 +37,15 @@ public class WhackAMole {
         textPanel.add(textLabel);
         frame.add(textPanel,BorderLayout.NORTH);
 
+        // constructing board panel
+        JPanel boardPanel = new JPanel();
+        boardPanel.setLayout(new GridLayout(3,3)); // 3x3 Grid Tiles
+        frame.add(boardPanel);// add boardpanel to frame
+        // boardPanel.setBackground(Color.BLACK);// Optional: makes background visible during development
+
+        
+
+
         
     }
     

@@ -227,7 +227,7 @@ frame.setLayout(new BorderLayout());
 this will create empty window blank, when run App.java
 
 ![alt text](progress/image.png)
-st
+
 ### Important Note on Timing
 
 Place `frame.setVisible(true)` at the very end of the constructor after all components are added. This ensures all components load before the window becomes visible, preventing slow loading of individual buttons.
@@ -284,6 +284,7 @@ frame.add(boardPanel);
 ```java
 boardPanel.setBackground(Color.BLACK);  // Optional: makes background visible during development
 ```
+![alt text](progress/image-4.png)
 
 ## Creating Buttons for Tiles
 
