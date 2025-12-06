@@ -290,7 +290,7 @@ boardPanel.setBackground(Color.BLACK);  // Optional: makes background visible du
 
 ### Button Array Setup
 
-Create an array to track all nine buttons:
+Create an array to track all nine buttons(outside constructor):
 
 ```java
 JButton[] board = new JButton[9];
@@ -308,7 +308,9 @@ for (int i = 0; i < 9; i++) {
 }
 ```
 
-Each button represents one tile on the game board.
+Each button represents one tile on the game board; also clickable
+
+![alt text](progress/image-5.png)
 
 ## Loading and Scaling Images
 
