@@ -390,6 +390,8 @@ plantIcon = new ImageIcon(plantImage.getScaledInstance(150, 150, Image.SCALE_SMO
 - Cannot directly set ImageIcon from file path with scaling
 - Must first get the image, then scale it, then create ImageIcon from scaled image
 
+![alt text](progress/image-7.png)
+
 ### Removing Button Focus Rectangle
 
 Disable the focus rectangle that appears when buttons are clicked:
@@ -397,6 +399,8 @@ Disable the focus rectangle that appears when buttons are clicked:
 ```java
 tile.setFocusable(false);
 ```
+
+![alt text](progress/image-8.png)
 
 ## Variables for Game State
 
