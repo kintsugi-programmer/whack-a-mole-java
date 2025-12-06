@@ -17,6 +17,7 @@ public class WhackAMole {
 
     ImageIcon moleIcon;
     ImageIcon plantIcon;
+    ImageIcon holeIcon;
 
     // game stats vars
     JButton currentMoleTile;
@@ -61,9 +62,11 @@ public class WhackAMole {
         // Create Image Objects
         Image moleImage = new ImageIcon(getClass().getResource("./monty.png")).getImage();
         Image plantImage = new ImageIcon(getClass().getResource("./monty.png")).getImage();
+        Image holeImage = new ImageIcon(getClass().getResource("./hole.png")).getImage();
         // Create Icon of scaling that Image Object
         moleIcon = new ImageIcon(moleImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
         plantIcon = new ImageIcon(plantImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
+        holeIcon = new ImageIcon(holeImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
 
 
 
@@ -73,7 +76,7 @@ public class WhackAMole {
             JButton tile = new JButton();
             board[i] = tile;
             boardPanel.add(tile); // appending to boardPanel Grid one-by-one
-            tile.setIcon(moleIcon); // debugging purpoes
+            tile.setIcon(holeIcon); // debugging purpoes
             tile.setFocusable(false);
 
         }   // Each button represents one tile on the game board.

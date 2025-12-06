@@ -67,6 +67,7 @@ assets, timed mole and Plant movement, score tracking, and game-over logic.
     - [Game Sequence](#game-sequence)
     - [Important Implementation Details](#important-implementation-details)
   - [Possible Enhancements](#possible-enhancements)
+    - [Enhancement 1: Hole instead of null spaces](#enhancement-1-hole-instead-of-null-spaces)
     - [Enhancement 1: Multiple Piranha Plants](#enhancement-1-multiple-piranha-plants)
     - [Enhancement 2: Reset Button](#enhancement-2-reset-button)
     - [Enhancement 3: High Score Tracking](#enhancement-3-high-score-tracking)
@@ -628,6 +629,17 @@ JButton clickedTile = (JButton) e.getSource();
 ## Possible Enhancements
 
 The basic game can be improved with these features:
+
+### Enhancement 1: Hole instead of null spaces
+```java
+    ImageIcon holeIcon; // before constructor
+
+    // Inside constructor
+    Image holeImage = new ImageIcon(getClass().getResource("./hole.png")).getImage();
+    holeIcon = new ImageIcon(holeImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
+
+    // then replace null with holeIcon
+```
 
 ### Enhancement 1: Multiple Piranha Plants
 
