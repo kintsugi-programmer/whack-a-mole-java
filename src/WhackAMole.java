@@ -64,9 +64,9 @@ public class WhackAMole {
         Image plantImage = new ImageIcon(getClass().getResource("./piranha.png")).getImage();
         Image holeImage = new ImageIcon(getClass().getResource("./hole.png")).getImage();
         // Create Icon of scaling that Image Object
-        moleIcon = new ImageIcon(moleImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
-        plantIcon = new ImageIcon(plantImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
-        holeIcon = new ImageIcon(holeImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
+        moleIcon = new ImageIcon(moleImage.getScaledInstance(250, 250, Image.SCALE_SMOOTH));
+        plantIcon = new ImageIcon(plantImage.getScaledInstance(250, 250, Image.SCALE_SMOOTH));
+        holeIcon = new ImageIcon(holeImage.getScaledInstance(250, 250, Image.SCALE_SMOOTH));
 
 
 
