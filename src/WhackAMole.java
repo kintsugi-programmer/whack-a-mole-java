@@ -22,7 +22,7 @@ public class WhackAMole {
     WhackAMole(){
 
         // constructing frame
-        frame.setVisible(true);// visibility
+        // frame.setVisible(true);// visibility
         frame.setSize(boardWidth, boardHeight);// set size
         frame.setLocationRelativeTo(null);// make sure to open at center
         frame.setResizable(false);// no resize
@@ -55,7 +55,7 @@ public class WhackAMole {
         Image plantImage = new ImageIcon(getClass().getResource("./monty.png")).getImage();
         // Create Icon of scaling that Image Object
         moleIcon = new ImageIcon(moleImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
-            plantIcon = new ImageIcon(plantImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
+        plantIcon = new ImageIcon(plantImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
 
 
 
@@ -73,6 +73,8 @@ public class WhackAMole {
 
 
         
-    }
+            frame.setVisible(true);// visibility, only after loading everything
+        }
+    
     
 }
