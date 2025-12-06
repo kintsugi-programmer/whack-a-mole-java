@@ -45,10 +45,23 @@ public class WhackAMole {
         textLabel.setText("Score: 0");// set text as score 0 default
         textLabel.setOpaque(true);
 
+        // constructing Reset Button
+        JButton resetButton = new JButton("Reset");
+        resetButton.setFont(new Font("Arial",Font.PLAIN,20));
+        resetButton.setFocusable(false);
+
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                resetGame();
+            }
+        });
+
         // constructing textPanel to hold textLabel
         // and making frame to hold textPanel
         textPanel.setLayout(new BorderLayout());
-        textPanel.add(textLabel);
+        textPanel.add(textLabel, BorderLayout.CENTER); // score at center
+        textPanel.add(resetButton, BorderLayout.EAST); // right side reset button
         frame.add(textPanel,BorderLayout.NORTH);
 
         // constructing board panel
@@ -198,8 +211,39 @@ public class WhackAMole {
             setMoleTimer.start();
             setPlantTimer.start();
             setPlantTimer2.start();
+            
             frame.setVisible(true);// visibility, only after loading everything
+
+
+        
         }
     
+    private void resetGame(){
+        // stop timers safetly check
+        setMoleTimer.stop();
+        setPlantTimer.stop();
+        setPlantTimer2.stop();
+
+        // reset score
+        score = 0;
+        textLabel.setText("Score: 0");
+
+        // clear board, for new start
+        for (int i=0; i<9; i++){
+            board[i].setIcon(holeIcon);
+            board[i].setEnabled(true);
+        }
+
+        // clear reference
+        currentMoleTile = null;
+        currentPlantTile = null;
+        currentPlantTile2 = null;
+
+        // restart timers
+        setMoleTimer.start();
+        setPlantTimer.start();
+        setPlantTimer2.start();
+     
+    }
     
 }
