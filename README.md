@@ -68,9 +68,9 @@ assets, timed mole and Plant movement, score tracking, and game-over logic.
     - [Important Implementation Details](#important-implementation-details)
   - [Possible Enhancements](#possible-enhancements)
     - [Enhancement 1: Hole instead of null spaces](#enhancement-1-hole-instead-of-null-spaces)
-    - [Enhancement 1: Multiple Piranha Plants](#enhancement-1-multiple-piranha-plants)
-    - [Enhancement 2: Reset Button](#enhancement-2-reset-button)
-    - [Enhancement 3: High Score Tracking](#enhancement-3-high-score-tracking)
+    - [Enhancement 2: Multiple Piranha Plants](#enhancement-2-multiple-piranha-plants)
+    - [Enhancement 3: Reset Button](#enhancement-3-reset-button)
+    - [Enhancement 4: High Score Tracking](#enhancement-4-high-score-tracking)
   - [Complete Code Structure](#complete-code-structure)
     - [Class Variables (Instance Variables)](#class-variables-instance-variables)
     - [Constructor Method](#constructor-method)
@@ -550,6 +550,10 @@ if (currentMoleTile == tile) {
 ![alt text](progress/image-11.png)
 ![alt text](progress/image-12.png)
 
+> after resizing to make pleasing
+
+![alt text](progress/image-13.png)
+
 ## Detecting Button Clicks
 
 ### Adding Click Listeners to Tiles
@@ -565,7 +569,7 @@ for (int i = 0; i < 9; i++) {
     // Add click handler
     tile.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            JButton clickedTile = (JButton) e.getSource();
+            JButton clickedTile = (JButton) e.getSource();// input user click & typecast that input to button
             
             // Check if clicked on mole
             if (clickedTile == currentMoleTile) {
@@ -615,6 +619,8 @@ JButton clickedTile = (JButton) e.getSource();
 - Mole and plant stop moving
 - Buttons become grayed out and unclickable
 
+
+
 ## Complete Game Flow
 
 ### Game Sequence
@@ -655,19 +661,19 @@ The basic game can be improved with these features:
 > then replace icon tiles `null` with `holeIcon`
 
 
-### Enhancement 1: Multiple Piranha Plants
+### Enhancement 2: Multiple Piranha Plants
 
 - Add multiple plant instances
 - Create additional plant tracking variables
 - Currently only one plant exists
 
-### Enhancement 2: Reset Button
+### Enhancement 3: Reset Button
 
 - Add button to reset the game
 - Player can play multiple rounds without restarting program
 - Implement reset logic to reinitialize game state
 
-### Enhancement 3: High Score Tracking
+### Enhancement 4: High Score Tracking
 
 - Create variable to track all-time high score
 - Display high score on screen

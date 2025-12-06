@@ -78,11 +78,41 @@ public class WhackAMole {
             boardPanel.add(tile); // appending to boardPanel Grid one-by-one
             tile.setIcon(holeIcon); // debugging purpoes
             tile.setFocusable(false);
-
-        }   // Each button represents one tile on the game board.
             // also clickable
+            // Each button represents one tile on the game board.
 
-        setMoleTimer = new Timer(1000, new ActionListener() { // 1 sec, init ActionListner
+            // Click Handler Logic
+            tile.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e){
+                    JButton clickedTile = (JButton) e.getSource(); // input user click & typecast that input to button
+
+                    // Score Logic, when Click Mole
+                    if(clickedTile==currentMoleTile){
+                        score+=10; // Score Add 10pts
+                        textLabel.setText("Score: "+Integer.toString(score));
+                    }
+
+                    // GameOver Logic, when Click Plant
+                    else if (clickedTile==currentPlantTile){
+                        textLabel.setText("Game Over");
+
+                        // Stop Movement of Objects
+                        setMoleTimer.stop();
+                        setPlantTimer.stop();
+
+                        // Disable all buttons
+                        for (int i = 0; i<9; i++){
+                            board[i].setEnabled(false);
+                        }
+                    }
+                }
+                
+            });
+
+        }   
+            
+
+        setMoleTimer = new Timer(750, new ActionListener() { // 1 sec, init ActionListner
             public void actionPerformed(ActionEvent e){
                 // Remove mole from current tile
                 if (currentMoleTile != null){ // if button is not null
@@ -109,7 +139,7 @@ public class WhackAMole {
             }
         });
 
-        setPlantTimer = new Timer(1500, new ActionListener() { // 1.5 sec, init ActionListner
+        setPlantTimer = new Timer(850, new ActionListener() { // 1.5 sec, init ActionListner
             public void actionPerformed(ActionEvent e){
                 // Remove mole from current tile
                 if (currentPlantTile != null){ // if button is not null
