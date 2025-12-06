@@ -314,11 +314,55 @@ Each button represents one tile on the game board; also clickable
 
 ## Loading and Scaling Images
 
+Make ImageIcon outside Constructors
+
+```java
+    ImageIcon moleIcon;
+    ImageIcon plantIcon;
+```
+Inside Constructor
+
+```java
+    // Loading and Scaling Images
+    moleIcon = new ImageIcon(getClass().getResource("./monty.png"));
+
+    // constructing buttons/ tiles 
+    // JButton button1 = new JButton(); // one button
+    for ( int  i = 0; i<9; i++){ // using loop, to create tiles/buttons; instead of hardcode
+        JButton tile = new JButton();
+        board[i] = tile;
+        boardPanel.add(tile); // appending to boardPanel Grid one-by-one
+        tile.setIcon(moleIcon); // IMAGE INSIDE TILE
+    }   // Each button represents one tile on the game board.
+        // also clickable
+
+```
+
+![alt text](progress/image-6.png)
+
+now as you can see, image is not setted ,but; image is not scaled...
+
 ### Image Files
 
 The game uses two image files:
-- `piranha.PNG` - Piranha Plant image
-- `monty.PNG` - Mole image
+- `piranha.png` - Piranha Plant image
+- `monty.png` - Mole image
+
+put it in src for direct access ease
+```bash
+bali-king@war-machine:~/BaliGit/whack-a-mole-java/src$ tree
+.
+├── App.class
+├── App.java
+├── monty2.png
+├── monty.png
+├── piranha.png
+├── WhackAMole.class
+└── WhackAMole.java
+
+1 directory, 7 files
+bali-king@war-machine:~/BaliGit/whack-a-mole-java/src$ 
+```
 
 ### Loading and Scaling Images
 
@@ -326,12 +370,12 @@ The images must be scaled to fit the buttons (150x150 pixels). The process invol
 
 ```java
 // Load mole image
-Image moleImage = new ImageIcon(getClass().getResource("./monty.PNG")).getImage();
-ImageIcon moleIcon = new ImageIcon(moleImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
+Image moleImage = new ImageIcon(getClass().getResource("./monty.png")).getImage(); 
+moleIcon = new ImageIcon(moleImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
 
 // Load plant image
-Image plantImage = new ImageIcon(getClass().getResource("./piranha.PNG")).getImage();
-ImageIcon plantIcon = new ImageIcon(plantImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
+Image plantImage = new ImageIcon(getClass().getResource("./piranha.png")).getImage();
+plantIcon = new ImageIcon(plantImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH));
 ```
 
 ### Explanation of Image Loading Process

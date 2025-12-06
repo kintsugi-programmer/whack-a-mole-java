@@ -14,6 +14,9 @@ public class WhackAMole {
     JPanel textPanel = new JPanel(); // text panel to hold text lable
     JButton[] board = new JButton[9]; // make button array for tracking all 9 buttons efficiently
 
+    ImageIcon moleIcon;
+    // ImageIcon plantIcon;
+
 
     // Constructor
     WhackAMole(){
@@ -44,12 +47,19 @@ public class WhackAMole {
         frame.add(boardPanel);// add boardpanel to frame
         // boardPanel.setBackground(Color.BLACK);// Optional: makes background visible during development
 
+        // Loading and Scaling Images
+        moleIcon = new ImageIcon(getClass().getResource("./monty.png"));
+
+        // Create Image Object
+        // Create Icon of scaling that Image Object
+
         // constructing buttons/ tiles 
         // JButton button1 = new JButton(); // one button
         for ( int  i = 0; i<9; i++){ // using loop, to create tiles/buttons; instead of hardcode
             JButton tile = new JButton();
             board[i] = tile;
             boardPanel.add(tile); // appending to boardPanel Grid one-by-one
+            tile.setIcon(moleIcon);
         }   // Each button represents one tile on the game board.
             // also clickable
 
