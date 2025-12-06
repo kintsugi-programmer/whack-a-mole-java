@@ -66,7 +66,7 @@ assets, timed mole and Plant movement, score tracking, and game-over logic.
   - [Complete Game Flow](#complete-game-flow)
     - [Game Sequence](#game-sequence)
     - [Important Implementation Details](#important-implementation-details)
-  - [Possible Enhancements](#possible-enhancements)
+  - [Enhancements](#enhancements)
     - [Enhancement 1: Hole instead of null spaces](#enhancement-1-hole-instead-of-null-spaces)
     - [Enhancement 2: GameOver Mole Teasing Buttons](#enhancement-2-gameover-mole-teasing-buttons)
     - [Enhancement 3: Second Piranha Plant](#enhancement-3-second-piranha-plant)
@@ -75,6 +75,12 @@ assets, timed mole and Plant movement, score tracking, and game-over logic.
       - [Logic Changes](#logic-changes)
       - [Player Experience](#player-experience)
     - [Enhancement 5: High Score Tracking](#enhancement-5-high-score-tracking)
+    - [Enhancement 6: Welcome Screen with Play Button](#enhancement-6-welcome-screen-with-play-button)
+      - [Purpose](#purpose)
+      - [Welcome Screen Design](#welcome-screen-design)
+      - [Play Button Behavior](#play-button-behavior)
+      - [Technical Implementation](#technical-implementation)
+      - [Player Experience](#player-experience-1)
   - [Complete Code Structure](#complete-code-structure)
     - [Class Variables (Instance Variables)](#class-variables-instance-variables)
     - [Constructor Method](#constructor-method)
@@ -652,9 +658,9 @@ JButton clickedTile = (JButton) e.getSource();
 - Focus rectangles removed from buttons for cleaner appearance
 - All components load before window becomes visible
 
-## Possible Enhancements
+## Enhancements
 
-The basic game can be improved with these features:
+The game improved with these features:
 
 ### Enhancement 1: Hole instead of null spaces
 ```java
@@ -851,6 +857,133 @@ A new method `resetGame()` is introduced, which:
 ![alt text](progress/image-21.png)
 ![alt text](progress/image-22.png)
 ![alt text](progress/image-23.png)
+
+### Enhancement 6: Welcome Screen with Play Button
+
+This enhancement introduces a **dedicated welcome screen** that appears when the game is launched, providing a polished entry point before gameplay begins.
+
+```java
+ private void showWelcomeScreen() {
+    // true = modal; blocks until closed
+    JDialog dialog = new JDialog(frame, "Welcome to Whack-A-Mole!", true);
+    dialog.setSize(350, 400);
+    dialog.setLocationRelativeTo(frame);
+    dialog.setLayout(new BorderLayout());
+
+    // Image
+    ImageIcon welcomeRaw = new ImageIcon(getClass().getResource("./monty2.png"));
+    Image welcomeImg = welcomeRaw.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+    JLabel imageLabel = new JLabel(new ImageIcon(welcomeImg));
+    imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    // Message label
+    JLabel welcomeLabel = new JLabel(
+        "<html><center>Welcome to Whack-A-Mole!<br>" +
+        "Click PLAY to start the game.<br>" +
+        "Hit the mole, avoid the plants!</center></html>",
+        SwingConstants.CENTER
+    );
+    welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+    dialog.add(imageLabel,BorderLayout.NORTH);
+    dialog.add(welcomeLabel, BorderLayout.CENTER);
+
+    // Play button
+    JButton playButton = new JButton("Play");
+    playButton.setFont(new Font("Arial", Font.BOLD, 18));
+    playButton.setFocusable(false);
+
+    playButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Start the game when user clicks Play
+            startGame();
+            dialog.dispose();
+        }
+    });
+
+    // Optional: Quit button
+    JButton quitButton = new JButton("Quit");
+    quitButton.setFont(new Font("Arial", Font.PLAIN, 14));
+    quitButton.setFocusable(false);
+    quitButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+    });
+
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.add(playButton);
+    buttonPanel.add(quitButton);
+    dialog.add(buttonPanel, BorderLayout.SOUTH);
+
+    dialog.setResizable(false);
+    dialog.setVisible(true);
+}private void startGame() {
+    setMoleTimer.start();
+    setPlantTimer.start();
+    setPlantTimer2.start();
+}
+
+
+    
+```
+```java
+// at cons. end
+
+            // commented because of welcome game logic
+            // setMoleTimer.start();
+            // setPlantTimer.start();
+            // setPlantTimer2.start();
+            
+            // frame.setVisible(true);// visibility, only after loading everything
+            frame.setVisible(true);   // show main window first
+            showWelcomeScreen();      // then show modal welcome + Play button
+
+```
+
+#### Purpose
+
+Previously, the game started immediately upon launch. The welcome screen improves user experience by:
+- Giving players a clear starting point.
+- Explaining basic gameplay rules.
+- Preventing the game from running before the player is ready.
+
+#### Welcome Screen Design
+
+- A modal **welcome dialog** is displayed on top of the main game window.
+- The screen includes:
+  - A game title (“Whack-A-Mole”).
+  - A centered **image** (mole or custom welcome artwork).
+  - A short description explaining the objective.
+  - A **Play** button to begin the game.
+
+The dialog is modal, meaning the player must interact with it before accessing gameplay.
+
+#### Play Button Behavior
+
+- Game timers (mole and Piranha Plants) are **not started automatically** when the application launches.
+- When the **Play** button is clicked:
+  1. The welcome screen is closed.
+  2. The game state is reset (board cleared, score reset).
+  3. All movement timers are started, beginning gameplay.
+
+This ensures the game always starts in a clean, predictable state.
+
+#### Technical Implementation
+
+- A `JDialog` is used for the welcome screen.
+- Images are displayed using `JLabel` with a scaled `ImageIcon`.
+- Timer initialization is decoupled from the constructor and triggered only after user interaction via a dedicated `startGame()` method.
+
+#### Player Experience
+
+- Players are welcomed with a visually engaging introduction.
+- Gameplay begins only after an explicit action, making the game feel more complete and intentional.
+- The welcome screen enhances accessibility, clarity, and overall polish.
+
+This enhancement transforms the project from a technical demo into a more complete, user-friendly desktop game.
+
+![alt text](progress/image-24.png)
 
 ## Complete Code Structure
 
@@ -1096,7 +1229,7 @@ public class WhackAMole {
             }
         });
 
-        setPlantTimer = new Timer(500, new ActionListener() { // 1.5 sec, init ActionListner
+        setPlantTimer = new Timer(1000, new ActionListener() { // 1.5 sec, init ActionListner
             public void actionPerformed(ActionEvent e){
                 // Remove mole from current tile
                 if (currentPlantTile != null){ // if button is not null
@@ -1148,12 +1281,14 @@ public class WhackAMole {
             }
         });
 
-            setMoleTimer.start();
-            setPlantTimer.start();
-            setPlantTimer2.start();
+            // commented because of welcome game logic
+            // setMoleTimer.start();
+            // setPlantTimer.start();
+            // setPlantTimer2.start();
             
-            frame.setVisible(true);// visibility, only after loading everything
-
+            // frame.setVisible(true);// visibility, only after loading everything
+            frame.setVisible(true);   // show main window first
+            showWelcomeScreen();      // then show modal welcome + Play button
 
         
         }
@@ -1189,6 +1324,69 @@ public class WhackAMole {
         setPlantTimer2.start();
      
     }
+
+    private void showWelcomeScreen() {
+    // true = modal; blocks until closed
+    JDialog dialog = new JDialog(frame, "Welcome to Whack-A-Mole!", true);
+    dialog.setSize(350, 400);
+    dialog.setLocationRelativeTo(frame);
+    dialog.setLayout(new BorderLayout());
+
+    // Image
+    ImageIcon welcomeRaw = new ImageIcon(getClass().getResource("./monty2.png"));
+    Image welcomeImg = welcomeRaw.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+    JLabel imageLabel = new JLabel(new ImageIcon(welcomeImg));
+    imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    // Message label
+    JLabel welcomeLabel = new JLabel(
+        "<html><center>Welcome to Whack-A-Mole!<br>" +
+        "Click PLAY to start the game.<br>" +
+        "Hit the mole, avoid the plants!</center></html>",
+        SwingConstants.CENTER
+    );
+    welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+    dialog.add(imageLabel,BorderLayout.NORTH);
+    dialog.add(welcomeLabel, BorderLayout.CENTER);
+
+    // Play button
+    JButton playButton = new JButton("Play");
+    playButton.setFont(new Font("Arial", Font.BOLD, 18));
+    playButton.setFocusable(false);
+
+    playButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Start the game when user clicks Play
+            startGame();
+            dialog.dispose();
+        }
+    });
+
+    // Optional: Quit button
+    JButton quitButton = new JButton("Quit");
+    quitButton.setFont(new Font("Arial", Font.PLAIN, 14));
+    quitButton.setFocusable(false);
+    quitButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+    });
+
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.add(playButton);
+    buttonPanel.add(quitButton);
+    dialog.add(buttonPanel, BorderLayout.SOUTH);
+
+    dialog.setResizable(false);
+    dialog.setVisible(true);
+}private void startGame() {
+    setMoleTimer.start();
+    setPlantTimer.start();
+    setPlantTimer2.start();
+}
+
+
     
 }
 

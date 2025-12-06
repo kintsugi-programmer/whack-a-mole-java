@@ -169,7 +169,7 @@ public class WhackAMole {
             }
         });
 
-        setPlantTimer = new Timer(500, new ActionListener() { // 1.5 sec, init ActionListner
+        setPlantTimer = new Timer(1000, new ActionListener() { // 1.5 sec, init ActionListner
             public void actionPerformed(ActionEvent e){
                 // Remove mole from current tile
                 if (currentPlantTile != null){ // if button is not null
@@ -221,12 +221,14 @@ public class WhackAMole {
             }
         });
 
-            setMoleTimer.start();
-            setPlantTimer.start();
-            setPlantTimer2.start();
+            // commented because of welcome game logic
+            // setMoleTimer.start();
+            // setPlantTimer.start();
+            // setPlantTimer2.start();
             
-            frame.setVisible(true);// visibility, only after loading everything
-
+            // frame.setVisible(true);// visibility, only after loading everything
+            frame.setVisible(true);   // show main window first
+            showWelcomeScreen();      // then show modal welcome + Play button
 
         
         }
@@ -262,5 +264,68 @@ public class WhackAMole {
         setPlantTimer2.start();
      
     }
+
+    private void showWelcomeScreen() {
+    // true = modal; blocks until closed
+    JDialog dialog = new JDialog(frame, "Welcome to Whack-A-Mole!", true);
+    dialog.setSize(350, 400);
+    dialog.setLocationRelativeTo(frame);
+    dialog.setLayout(new BorderLayout());
+
+    // Image
+    ImageIcon welcomeRaw = new ImageIcon(getClass().getResource("./monty2.png"));
+    Image welcomeImg = welcomeRaw.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+    JLabel imageLabel = new JLabel(new ImageIcon(welcomeImg));
+    imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    // Message label
+    JLabel welcomeLabel = new JLabel(
+        "<html><center>Welcome to Whack-A-Mole!<br>" +
+        "Click PLAY to start the game.<br>" +
+        "Hit the mole, avoid the plants!</center></html>",
+        SwingConstants.CENTER
+    );
+    welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+    dialog.add(imageLabel,BorderLayout.NORTH);
+    dialog.add(welcomeLabel, BorderLayout.CENTER);
+
+    // Play button
+    JButton playButton = new JButton("Play");
+    playButton.setFont(new Font("Arial", Font.BOLD, 18));
+    playButton.setFocusable(false);
+
+    playButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Start the game when user clicks Play
+            startGame();
+            dialog.dispose();
+        }
+    });
+
+    // Optional: Quit button
+    JButton quitButton = new JButton("Quit");
+    quitButton.setFont(new Font("Arial", Font.PLAIN, 14));
+    quitButton.setFocusable(false);
+    quitButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+    });
+
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.add(playButton);
+    buttonPanel.add(quitButton);
+    dialog.add(buttonPanel, BorderLayout.SOUTH);
+
+    dialog.setResizable(false);
+    dialog.setVisible(true);
+}private void startGame() {
+    setMoleTimer.start();
+    setPlantTimer.start();
+    setPlantTimer2.start();
+}
+
+
     
 }
