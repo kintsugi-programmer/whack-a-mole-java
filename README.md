@@ -547,6 +547,9 @@ if (currentMoleTile == tile) {
 3. No overwriting occurs
 4. Game logic remains consistent
 
+![alt text](progress/image-11.png)
+![alt text](progress/image-12.png)
+
 ## Detecting Button Clicks
 
 ### Adding Click Listeners to Tiles

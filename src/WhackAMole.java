@@ -90,8 +90,22 @@ public class WhackAMole {
                     currentMoleTile = null;
                 }
 
-                currentMoleTile = board[random.nextInt(9)];
+                // // old normal way, but doesn't check if other object also have same tile or not
+                // currentMoleTile = board[random.nextInt(9)];
+                // currentMoleTile.setIcon(moleIcon);
+
+                // new way, makes objects of random number and check if plant already is at tile
+                // Select random tile
+                int num = random.nextInt(9); // random 0 to 8
+                JButton tile = board[num];
+
+                // Check if plant is on this tile (avoid conflict)
+                if (currentPlantTile == tile ){return;} // skip
+
+                // Place mole on new tile
+                currentMoleTile = tile;
                 currentMoleTile.setIcon(moleIcon);
+
             }
         });
 
@@ -103,7 +117,20 @@ public class WhackAMole {
                     currentPlantTile = null;
                 }
 
-                currentPlantTile = board[random.nextInt(9)];
+                // // old normal way, but doesn't check if other object also have same tile or not
+                // currentPlantTile = board[random.nextInt(9)];
+                // currentPlantTile.setIcon(moleIcon);
+
+                // new way, makes objects of random number and check if plant already is at tile
+                // Select random tile
+                int num = random.nextInt(9); // random 0 to 8
+                JButton tile = board[num];
+
+                // Check if mole is on this tile (avoid conflict)
+                if (currentMoleTile == tile ){return;} // skip
+
+                // Place plant on new tile
+                currentPlantTile = tile;
                 currentPlantTile.setIcon(plantIcon);
             }
         });
