@@ -12,7 +12,9 @@ public class WhackAMole {
     JFrame frame = new JFrame("Whack-A-Mole (github.com/kintsugi-programmer)");// frame
 
     JLabel textLabel = new JLabel(); // text label
-    JPanel textPanel = new JPanel(); // text panel to hold text lable
+    JPanel textPanel = new JPanel(); // text panel to hold text lablel
+    JLabel textLabel2 = new JLabel(); // text label
+    JPanel textPanel2 = new JPanel(); // text panel to hold text lablel
     JButton[] board = new JButton[9]; // make button array for tracking all 9 buttons efficiently
 
     ImageIcon moleIcon;
@@ -26,7 +28,7 @@ public class WhackAMole {
     Random random = new Random();
     Timer setMoleTimer;
     Timer setPlantTimer,setPlantTimer2;
-    int score = 0;
+    int score = 0,highScore=0;
 
     // Constructor
     WhackAMole(){
@@ -45,8 +47,14 @@ public class WhackAMole {
         textLabel.setText("Score: 0");// set text as score 0 default
         textLabel.setOpaque(true);
 
+         // constructing textLabel2
+        textLabel2.setFont(new Font("Arial",Font.BOLD,25));// Set Font to Label, Arial Font , Plain 50px
+        textLabel2.setHorizontalAlignment(JLabel.CENTER);// center text auto
+        textLabel2.setText("<html>"+"HighScore: "+Integer.toString(highScore)+"<br>YourScore: 0"+"</html>");
+        textLabel2.setOpaque(true);
+
         // constructing Reset Button
-        JButton resetButton = new JButton("Reset");
+        JButton resetButton = new JButton("Retry");
         resetButton.setFont(new Font("Arial",Font.PLAIN,20));
         resetButton.setFocusable(false);
 
@@ -61,6 +69,7 @@ public class WhackAMole {
         // and making frame to hold textPanel
         textPanel.setLayout(new BorderLayout());
         textPanel.add(textLabel, BorderLayout.CENTER); // score at center
+        textPanel.add(textLabel2, BorderLayout.WEST); // score at center
         textPanel.add(resetButton, BorderLayout.EAST); // right side reset button
         frame.add(textPanel,BorderLayout.NORTH);
 
@@ -110,6 +119,10 @@ public class WhackAMole {
                     // GameOver Logic, when Click Plant
                     else if (clickedTile==currentPlantTile || clickedTile==currentPlantTile2){
                         textLabel.setText("Game Over");
+
+                        // calculate and update highscore
+                        if(highScore<score){highScore=score;}
+                        textLabel2.setText("<html>"+"HighScore: "+Integer.toString(highScore)+"<br>YourScore: "+score+ "</html>");
 
                         // Stop Movement of Objects
                         setMoleTimer.stop();
@@ -223,6 +236,10 @@ public class WhackAMole {
         setMoleTimer.stop();
         setPlantTimer.stop();
         setPlantTimer2.stop();
+
+        // calculate and update highscore before reset score
+            if(highScore<score){highScore=score;}
+        textLabel2.setText("<html>"+"HighScore: "+Integer.toString(highScore)+"<br>YourScore: "+score+ "</html>");
 
         // reset score
         score = 0;
