@@ -1,21 +1,24 @@
-# whack-a-mole-java
-> Whack-A-Mole - Java Swing Game using timed events and score logic
+# Whack-A-Mole for Linux | Plug & Play Edition
 
-> Advisor: Dr.Koteswar Rao Jerripothula
+### 🔽 Download & Try Now
+> 🎮 whackamole | Plug & Play Edition
 
-> Simple Java Swing desktop game implementing a 3x3 Whack-A-Mole with Modern-themed
-assets, timed mole and Plant movement, score tracking, and game-over logic.
+[![Download whackamole](https://img.shields.io/badge/Download-whackamole.deb-blue?logo=linux)](https://github.com/kintsugi-programmer/whack-a-mole-java/releases/tag/whackamole_1.0.0-1_amd64)
+
+Whack-A-Mole is a Java Swing desktop game that implements a 3x3 grid-based whack-a-mole mechanic with timed events, animated mole and Piranha Plant enemies, scoring, and game-over logic. Built using Java, Swing, AWT, javax.swing.Timer, and ImageIcon, it features enhancements like a welcome screen, reset/retry flow, high-score tracking, multiple hazards, and polished UI with custom AI-generated sprites/characters. The project demonstrates core concepts in GUI programming, event-driven design, image handling, and basic game logic, and is packaged as a .deb application for easy installation on Linux.
 
 > TechStack: Java, Swing, AWT, javax.swing.Timer, ImageIcon, VS Code
 
 - Author: [Kintsugi-Programmer](https://github.com/kintsugi-programmer)
 
 ![alt text](image.png)
+![alt text](GamePlay.gif)
 
 > Disclaimer: The content presented here is a curated blend of my personal learning journey, experiences, open-source documentation, and invaluable knowledge gained from diverse sources. I do not claim sole ownership over all the material; this is a community-driven effort to learn, share, and grow together.
 
 ## Table of Contents
-- [whack-a-mole-java](#whack-a-mole-java)
+- [Whack-A-Mole for Linux | Plug \& Play Edition](#whack-a-mole-for-linux--plug--play-edition)
+    - [🔽 Download \& Try Now](#-download--try-now)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
     - [Game Overview](#game-overview)
@@ -94,10 +97,13 @@ assets, timed mole and Plant movement, score tracking, and game-over logic.
     - [src/App.java](#srcappjava)
     - [src/WhackAMole.java](#srcwhackamolejava)
   - [Development Notes](#development-notes)
+  - [Build + Export .deb Software Script](#build--export-deb-software-script)
+  - [Install and Run .deb Linux](#install-and-run-deb-linux)
     - [Performance Tip](#performance-tip)
     - [Testing Approach](#testing-approach)
     - [Debugging](#debugging)
   - [Conclusion](#conclusion)
+  - [LICENSE](#license)
 
 
 ## Introduction
@@ -1394,6 +1400,31 @@ public class WhackAMole {
 
 ## Development Notes
 
+## Build + Export .deb Software Script
+```bash
+rm -rf dist && mkdir dist && \
+cp build/whackamole.jar dist/ && \
+cp src/monty2.png dist/ && \
+jpackage \
+  --type deb \
+  --name whackamole \
+  --input dist \
+  --main-jar whackamole.jar \
+  --main-class App \
+  --icon monty2.png \
+  --app-version 1.0.0 \
+  --vendor "Kintsugi-Programmer"
+```
+
+## Install and Run .deb Linux
+```bash
+sudo dpkg -i whackamole_1.0.0-1_amd64.deb   # adjust name if slightly different
+whackamole
+```
+```bash
+sudo dpkg -r whackamole # uninstall
+```
+
 ### Performance Tip
 
 Set `frame.setVisible(true)` at the very end of constructor to ensure all components load before window displays. This prevents UI components from appearing slowly one by one.
@@ -1424,6 +1455,32 @@ This Documentation covers all fundamental aspects of creating a GUI game in Java
 - User interaction and feedback
 
 The resulting game is fully functional and provides a solid foundation for learning GUI programming concepts.
+
+---
+
+## LICENSE
+
+MIT License
+
+Copyright (c) 2025 Siddhant Bali
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ---
 End-of-File

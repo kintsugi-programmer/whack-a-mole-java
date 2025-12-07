@@ -1,0 +1,11 @@
+Package: whack-a-mole
+Version: 1.0.0-1
+Section: misc
+Maintainer: Kintsugi-Programmer <Unknown>
+Priority: optional
+Architecture: amd64
+Provides: whack-a-mole
+Description: Whack-A-Mole Java Swing game by kintsugi-programmer
+Depends: libasound2t64, libatomic1, libbrotli1, libbz2-1.0, libc6, libfreetype6, libgcc-s1, libgif7, libglib2.0-0t64, libgraphite2-3, libharfbuzz0b, libjpeg-turbo8, liblcms2-2, libpcre2-8-0, libpcsclite1, libpng16-16t64, libstdc++6, libx11-6, libxau6, libxcb1, libxdmcp6, libxext6, libxi6, libxrender1, libxtst6, zlib1g 
+Installed-Size: 136984
+

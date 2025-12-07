@@ -80,13 +80,13 @@ public class WhackAMole {
         // boardPanel.setBackground(Color.BLACK);// Optional: makes background visible during development
 
         // Loading and Scaling Images
-        // moleIcon = new ImageIcon(getClass().getResource("./monty.png")); old
+        // moleIcon = new ImageIcon(getClass().getResource("/monty.png")); old
         // New Approach        
         // Create Image Objects
-        Image moleImage = new ImageIcon(getClass().getResource("./monty.png")).getImage();
-        Image plantImage = new ImageIcon(getClass().getResource("./piranha.png")).getImage();
-        Image holeImage = new ImageIcon(getClass().getResource("./hole.png")).getImage();
-        Image molemockingImage = new ImageIcon(getClass().getResource("./montymocking.png")).getImage();
+        Image moleImage = new ImageIcon(getClass().getResource("/monty.png")).getImage();
+        Image plantImage = new ImageIcon(getClass().getResource("/piranha.png")).getImage();
+        Image holeImage = new ImageIcon(getClass().getResource("/hole.png")).getImage();
+        Image molemockingImage = new ImageIcon(getClass().getResource("/montymocking.png")).getImage();
         // Create Icon of scaling that Image Object
         moleIcon = new ImageIcon(moleImage.getScaledInstance(250, 250, Image.SCALE_SMOOTH));
         plantIcon = new ImageIcon(plantImage.getScaledInstance(250, 250, Image.SCALE_SMOOTH));
@@ -273,7 +273,7 @@ public class WhackAMole {
     dialog.setLayout(new BorderLayout());
 
     // Image
-    ImageIcon welcomeRaw = new ImageIcon(getClass().getResource("./monty2.png"));
+    ImageIcon welcomeRaw = new ImageIcon(getClass().getResource("/monty2.png"));
     Image welcomeImg = welcomeRaw.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
     JLabel imageLabel = new JLabel(new ImageIcon(welcomeImg));
     imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
