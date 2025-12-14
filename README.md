@@ -1,4 +1,4 @@
-# Whack-A-Mole for Linux | Plug & Play Edition
+# Whack-A-Mole for Linux | Plug & Play Edition | Java Game Development
 
 ### 🔽 Download & Try Now
 > 🎮 whackamole | Plug & Play Edition
