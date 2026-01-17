@@ -1,9 +1,11 @@
-# Whack-A-Mole for Linux | Plug & Play Edition | Java Game Development
+# Whack-A-Mole for Windows/Linux | Plug & Play Edition | Java Game Development
 
 ### 🔽 Download & Try Now
 > 🎮 whackamole | Plug & Play Edition
 
 [![Download whackamole](https://img.shields.io/badge/Download-whackamole.deb-blue?logo=linux)](https://github.com/kintsugi-programmer/whack-a-mole-java/releases/tag/whackamole_1.0.0-1_amd64)
+[![Download WhackAMole for Windows](https://img.shields.io/badge/Download-WhackAMole%20Windows-blue?logo=windows)](https://github.com/kintsugi-programmer/whack-a-mole-java/releases/download/whackamole_1.0.0-1_amd64/KintsugiStack.WhackAMole.Windows.V0.zip)
+
 
 Whack-A-Mole is a Java Swing desktop game that implements a 3x3 grid-based whack-a-mole mechanic with timed events, animated mole and Piranha Plant enemies, scoring, and game-over logic. Built using Java, Swing, AWT, javax.swing.Timer, and ImageIcon, it features enhancements like a welcome screen, reset/retry flow, high-score tracking, multiple hazards, and polished UI with custom AI-generated sprites/characters. The project demonstrates core concepts in GUI programming, event-driven design, image handling, and basic game logic, and is packaged as a .deb application for easy installation on Linux.
 
@@ -1424,6 +1426,20 @@ whackamole
 ```bash
 sudo dpkg -r whackamole # uninstall
 ```
+## Windows One-Command Build (Jar + Custom JRE + Shortcut Icon)
+
+```powershell
+javac -d build src\App.java src\WhackAMole.java; jar cfe whackamole.jar App -C build .; jlink --module-path "$env:JAVA_HOME\jmods" --add-modules java.base,java.desktop,java.logging --output runtime --strip-debug --no-header-files --no-man-pages --compress=2; mkdir windows-release -Force; xcopy runtime windows-release\runtime /E /I /Y; xcopy build windows-release\build /E /I /Y; copy *.png windows-release\; copy whackamole.jar windows-release\; $w=(New-Object -ComObject WScript.Shell).CreateShortcut("windows-release\WhackAMole.lnk"); $w.TargetPath="$env:JAVA_HOME\bin\javaw.exe"; $w.Arguments="-jar `"$PWD\windows-release\whackamole.jar`""; $w.WorkingDirectory="$PWD\windows-release"; $w.IconLocation="$PWD\monty2.ico,0"; $w.Save()
+```
+
+That’s it.  
+This produces:
+
+- `whackamole.jar`
+- custom `runtime/` JRE
+- `windows-release/`
+- `WhackAMole.lnk` with **monty2.ico icon**
+- **no installer, no scripts, no console**
 
 ### Performance Tip
 
